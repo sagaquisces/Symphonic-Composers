@@ -13,7 +13,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ComposersActivity extends AppCompatActivity {
+public class ComposersActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     @Bind(R.id.listView) ListView mListView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
 
@@ -31,16 +31,16 @@ public class ComposersActivity extends AppCompatActivity {
         MyComposersArrayAdapter adapter = new MyComposersArrayAdapter(this, android.R.layout.simple_list_item_1, composers, symphonies);
         mListView.setAdapter(adapter);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String composer = ((TextView) view).getText().toString();
-                Toast.makeText(ComposersActivity.this, composer, Toast.LENGTH_LONG).show();
-            }
-        });
+        mListView.setOnItemClickListener(this);
 
         Intent intent = getIntent();
         String country = intent.getStringExtra("country");
         mCountryTextView.setText("Here are all the composers from: " + country);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
+        Intent newintent = new Intent(ComposersActivity.this, ComposerDetailActivity.class);
+        startActivity(newintent);
     }
 }
