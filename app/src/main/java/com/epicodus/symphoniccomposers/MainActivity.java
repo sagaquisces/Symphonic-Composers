@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.findComposersButton) Button mFindComposersButton;
     @Bind(R.id.countryEditText) EditText mCountryEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
@@ -25,17 +25,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        mFindComposersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String country = mCountryEditText.getText().toString();
-                Intent intent = new Intent(MainActivity.this, ComposersActivity.class);
-                intent.putExtra("country", country);
-                startActivity(intent);
-            }
-        });
+        mFindComposersButton.setOnClickListener(this);
 
         Typeface danceFont = Typeface.createFromAsset(getAssets(), "fonts/dancing-script.otf");
         mAppNameTextView.setTypeface(danceFont);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == mFindComposersButton) {
+            String country = mCountryEditText.getText().toString();
+            Intent intent = new Intent(MainActivity.this, ComposersActivity.class);
+            intent.putExtra("country", country);
+            startActivity(intent);
+        }
     }
 }
