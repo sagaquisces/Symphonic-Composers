@@ -1,16 +1,20 @@
 # Symphonic Composers
 
-An app that features composers of symphonies from 
+An app that features composers of symphonies and will eventually use an app to pull details about these particular composers who have tackled this mountain of an art form.
 
 ## Instructions for setup
 
-* 
+* Clone this repository at the comman line of your terminal: `git clone https://github.com/sagaquisces/Symphonic-Composers.git`
+* Open Android Studio (currently 2.3.2)
+* Select *Open an existing Android Studio project*
+* In the file structure, navigate to the cloned directory, highlight that, and click *OK*
+* Once it fully loads you can *Run* the project
 
 ## Technologies Used
-* Angular 2
-* Typescript
-* Javascript
-* HTML
+* Android Studio 2.3.2
+* Java
+* XML
+
 ### License
 
 Copyright 2017 Michael Dunlap
