@@ -23,7 +23,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.epicodus.symphoniccomposers.MainActivity"></meta-data>
         </activity>
-        <activity android:name=".ComposerDetailActivity"></activity>
+        <activity android:name=".ComposerDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.epicodus.symphoniccomposers.ComposersActivity"></meta-data>
+        </activity>
     </application>
 
 </manifest>

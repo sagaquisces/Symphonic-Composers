@@ -40,7 +40,8 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
-        Intent newintent = new Intent(ComposersActivity.this, ComposerDetailActivity.class);
-        startActivity(newintent);
+        Intent intent = new Intent(ComposersActivity.this, ComposerDetailActivity.class);
+        intent.putExtra("composer", ((TextView)v).getText().toString());
+        startActivity(intent);
     }
 }
