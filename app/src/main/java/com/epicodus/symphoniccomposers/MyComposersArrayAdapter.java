@@ -23,7 +23,12 @@ public class MyComposersArrayAdapter extends ArrayAdapter {
     public Object getItem(int position) {
         String composer = mComposers[position];
         String symphonies = mSymphonies[position];
-        return String.format("%s \nwrote %s symphony(ies).", composer, symphonies);
+        int symphoniesInt = Integer.parseInt(symphonies);
+        if (symphoniesInt > 1) {
+            return String.format("%s \nwrote %s symphonies.", composer, symphonies);
+        } else {
+            return String.format("%s \nwrote only %s symphony.", composer, symphonies);
+        }
     }
 
     @Override
