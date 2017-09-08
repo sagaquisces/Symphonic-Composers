@@ -23,7 +23,7 @@ public class MyComposersArrayAdapter extends ArrayAdapter {
     public Object getItem(int position) {
         String composer = mComposers[position];
         String symphonies = mSymphonies[position];
-        return String.format("%s \nwrote %s symphony(ies)", composer, symphonies);
+        return String.format("%s \nwrote %s symphony(ies).", composer, symphonies);
     }
 
     @Override
