@@ -19,6 +19,7 @@ public class ComposersActivity extends AppCompatActivity {
 
     private String[] composers = new String[] {"Ludwig van Beethoven", "Johannes Brahms", "Felix Mendelssohn", "Robert Schumann", "Richard Strauss", "Paul Hindemith", "Felix Draeseke", "Louis Spohr", "Max Bruch", "Robert Volkmann", "Karl Amadeus Hartmann", "Wilhelm Furtwängler"};
 
+    private String[] symphonies = new String[] {"9", "4", "4", "4", "1", "4", "4", "8", "2", "4", "5", "2"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class ComposersActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, composers);
+        MyComposersArrayAdapter adapter = new MyComposersArrayAdapter(this, android.R.layout.simple_list_item_1, composers, symphonies);
         mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
