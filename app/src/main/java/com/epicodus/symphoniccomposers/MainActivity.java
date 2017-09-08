@@ -1,22 +1,28 @@
 package com.epicodus.symphoniccomposers;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
     private Button mFindComposersButton;
     private EditText mCountryEditText;
+    private TextView mAppNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAppNameTextView = (TextView) findViewById(R.id.appNameTextView);
         mCountryEditText = (EditText) findViewById(R.id.countryEditText);
         mFindComposersButton = (Button) findViewById(R.id.findComposersButton);
         mFindComposersButton.setOnClickListener(new View.OnClickListener() {
@@ -28,5 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Typeface danceFont = Typeface.createFromAsset(getAssets(), "fonts/dancing-script.otf");
+        mAppNameTextView.setTypeface(danceFont);
     }
 }
