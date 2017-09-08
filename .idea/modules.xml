@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Symphonic-Composers.iml" filepath="$PROJECT_DIR$/Symphonic-Composers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Symphonic-Composers.iml" filepath="$PROJECT_DIR$/Symphonic-Composers.iml" />
       <module fileurl="file://$PROJECT_DIR$/SymphonicComposers.iml" filepath="$PROJECT_DIR$/SymphonicComposers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
