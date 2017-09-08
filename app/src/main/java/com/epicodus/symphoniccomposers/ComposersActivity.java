@@ -10,18 +10,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ComposersActivity extends AppCompatActivity {
+    @Bind(R.id.listView) ListView mListView;
+    @Bind(R.id.countryTextView) TextView mCountryTextView;
+
     private String[] composers = new String[] {"Ludwig van Beethoven", "Johannes Brahms", "Felix Mendelssohn", "Robert Schumann", "Richard Strauss", "Paul Hindemith", "Felix Draeseke", "Louis Spohr", "Max Bruch", "Robert Volkmann", "Karl Amadeus Hartmann", "Wilhelm Furtwängler"};
-    private ListView mListView;
-    private TextView mCountryTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_composers);
 
-        mListView = (ListView) findViewById(R.id.listView);
-        mCountryTextView = (TextView) findViewById(R.id.countryTextView);
+        ButterKnife.bind(this);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, composers);
         mListView.setAdapter(adapter);

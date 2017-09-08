@@ -11,20 +11,20 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = MainActivity.class.getSimpleName();
-    private Button mFindComposersButton;
-    private EditText mCountryEditText;
-    private TextView mAppNameTextView;
+    @Bind(R.id.findComposersButton) Button mFindComposersButton;
+    @Bind(R.id.countryEditText) EditText mCountryEditText;
+    @Bind(R.id.appNameTextView) TextView mAppNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAppNameTextView = (TextView) findViewById(R.id.appNameTextView);
-        mCountryEditText = (EditText) findViewById(R.id.countryEditText);
-        mFindComposersButton = (Button) findViewById(R.id.findComposersButton);
+        ButterKnife.bind(this);
         mFindComposersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
