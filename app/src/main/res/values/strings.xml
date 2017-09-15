@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">SymphonicComposers</string>
 
-    <string name="country_prompt">Choose a country</string>
+    <!--<string name="country_prompt">Choose a country (or all composers)</string>-->
 
     <string-array name="countries_array">
+        <item>All composers (or choose a country)</item>
         <item>Germany</item>
         <item>Italy</item>
         <item>France</item>
