@@ -3,6 +3,7 @@ package com.epicodus.symphoniccomposers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,10 +11,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ComposersActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    public static final String TAG = ComposersActivity.class.getSimpleName();
+
     @Bind(R.id.listView) ListView mListView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
 
@@ -36,6 +44,8 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
         Intent intent = getIntent();
         String country = intent.getStringExtra("country");
         mCountryTextView.setText("Here are all the composers from: " + country);
+
+        getSymphonyComposers(country);
     }
 
     @Override
@@ -43,5 +53,26 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
         Intent intent = new Intent(ComposersActivity.this, ComposerDetailActivity.class);
         intent.putExtra("composer", ((TextView)v).getText().toString());
         startActivity(intent);
+    }
+
+    private void getSymphonyComposers(String country) {
+        final WikiService wikiService = new WikiService();
+        wikiService.findSymphonyComposers(country, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String jsonData = response.body().string();
+                    Log.v(TAG, jsonData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
     }
 }
