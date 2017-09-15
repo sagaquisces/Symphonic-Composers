@@ -4,10 +4,20 @@
     <!--<string name="country_prompt">Choose a country (or all composers)</string>-->
 
     <string-array name="countries_array">
-        <item>All composers (or choose a country)</item>
-        <item>Germany</item>
-        <item>Italy</item>
-        <item>France</item>
-        <item>Spain</item>
+        <item>All composers (or choose a nationality)</item>
+        <item>German</item>
+        <item>Italian</item>
+        <item>French</item>
+        <item>Austrian</item>
+        <item>American</item>
+        <item>Polish</item>
+        <item>British</item>
+        <item>Spanish</item>
+        <item>Turkish</item>
+        <item>Armenian</item>
+        <item>Russian</item>
+        <item>Japanese</item>
+        <item>Welsh</item>
+        <item>Estonian</item>
     </string-array>
 </resources>

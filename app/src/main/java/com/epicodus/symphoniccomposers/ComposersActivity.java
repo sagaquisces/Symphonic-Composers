@@ -46,7 +46,13 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
 
         Intent intent = getIntent();
         String country = intent.getStringExtra("country");
-        mCountryTextView.setText("Here are all the composers from: " + country);
+        String message = "";
+        if (country.contains("All")){
+            message = "Here are all symphonic composers in our list";
+        } else {
+            message = "Here are all the %s composers";
+        }
+        mCountryTextView.setText(String.format(message, country));
 
         getSymphonyComposers(country);
     }
@@ -58,7 +64,7 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
         startActivity(intent);
     }
 
-    private void getSymphonyComposers(String country) {
+    private void getSymphonyComposers(final String country) {
         final WikiService wikiService = new WikiService();
         wikiService.findSymphonyComposers(country, new Callback() {
             @Override
@@ -68,7 +74,7 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mSymphonyComposers = wikiService.processResults(response);
+                mSymphonyComposers = wikiService.processResults(country, response);
 
                 ComposersActivity.this.runOnUiThread(new Runnable() {
 

@@ -46,7 +46,7 @@ public class WikiService {
         call.enqueue(callback);
     }
 
-    public ArrayList<SymphonyComposer> processResults(Response response) {
+    public ArrayList<SymphonyComposer> processResults(String country, Response response) {
         ArrayList<SymphonyComposer> symphonyComposers = new ArrayList<>();
 
         try {
@@ -60,15 +60,12 @@ public class WikiService {
                         .getJSONObject(0)
                         .getString("*");
                 List<String> parts = new LinkedList<>(Arrays.asList(wikitext.split("\\r?\\n")));
-//                parts.remove(1);
-                for (int i=0; i < 25; i++) {
+                for (int i=0; i < parts.size(); i++) {
                     String part = parts.get(i);
-                    if (part.indexOf("*") == 0 && part.contains("(") && part.contains("),")) {
+                    if (part.indexOf("*[[") == 0 && part.contains("(") && part.contains("),") && ( part.contains(country) || country.contains("All"))) {
                         String name = part.substring(part.indexOf("[")+2, part.indexOf("]"));
-//                        String birthDeath = "birthDeath";
                         String birthDeath = part.substring(part.indexOf("(")+1, part.indexOf(")"));
                         String content = part.substring(part.indexOf("), ")+3, part.length());
-//                        String content = "content";
                         Log.d("HI", part);
                         SymphonyComposer symphonyComposer = new SymphonyComposer(name, birthDeath, content);
                         symphonyComposers.add(symphonyComposer);
