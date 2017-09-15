@@ -1,10 +1,23 @@
 package com.epicodus.symphoniccomposers;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Guest on 9/15/17.
@@ -31,5 +44,44 @@ public class WikiService {
 
         Call call = client.newCall(request);
         call.enqueue(callback);
+    }
+
+    public ArrayList<SymphonyComposer> processResults(Response response) {
+        ArrayList<SymphonyComposer> symphonyComposers = new ArrayList<>();
+
+        try {
+            String jsonData = response.body().string();
+            if (response.isSuccessful()) {
+                JSONObject wikiJSON = new JSONObject(jsonData);
+                String wikitext = wikiJSON.getJSONObject("query")
+                        .getJSONObject("pages")
+                        .getJSONObject("9855199")
+                        .getJSONArray("revisions")
+                        .getJSONObject(0)
+                        .getString("*");
+                List<String> parts = new LinkedList<>(Arrays.asList(wikitext.split("\\r?\\n")));
+//                parts.remove(1);
+                for (int i=0; i < 25; i++) {
+                    String part = parts.get(i);
+                    if (part.indexOf("*") == 0 && part.contains("(") && part.contains("),")) {
+                        String name = part.substring(part.indexOf("[")+2, part.indexOf("]"));
+//                        String birthDeath = "birthDeath";
+                        String birthDeath = part.substring(part.indexOf("(")+1, part.indexOf(")"));
+                        String content = part.substring(part.indexOf("), ")+3, part.length());
+//                        String content = "content";
+                        Log.d("HI", part);
+                        SymphonyComposer symphonyComposer = new SymphonyComposer(name, birthDeath, content);
+                        symphonyComposers.add(symphonyComposer);
+                    }
+
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return symphonyComposers;
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,9 +26,11 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
     @Bind(R.id.listView) ListView mListView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
 
-    private String[] composers = new String[] {"Ludwig van Beethoven", "Johannes Brahms", "Felix Mendelssohn", "Robert Schumann", "Richard Strauss", "Paul Hindemith", "Felix Draeseke", "Louis Spohr", "Max Bruch", "Robert Volkmann", "Karl Amadeus Hartmann", "Wilhelm Furtwängler"};
+//    private String[] composers = new String[] {"Ludwig van Beethoven", "Johannes Brahms", "Felix Mendelssohn", "Robert Schumann", "Richard Strauss", "Paul Hindemith", "Felix Draeseke", "Louis Spohr", "Max Bruch", "Robert Volkmann", "Karl Amadeus Hartmann", "Wilhelm Furtwängler"};
+//
+//    private String[] symphonies = new String[] {"9", "4", "4", "4", "1", "4", "4", "8", "2", "4", "5", "2"};
 
-    private String[] symphonies = new String[] {"9", "4", "4", "4", "1", "4", "4", "8", "2", "4", "5", "2"};
+    public ArrayList<SymphonyComposer> mSymphonyComposers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +39,8 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
 
         ButterKnife.bind(this);
 
-        MyComposersArrayAdapter adapter = new MyComposersArrayAdapter(this, android.R.layout.simple_list_item_1, composers, symphonies);
-        mListView.setAdapter(adapter);
+//        MyComposersArrayAdapter adapter = new MyComposersArrayAdapter(this, android.R.layout.simple_list_item_1, composers, symphonies);
+//        mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(this);
 
@@ -65,12 +68,28 @@ public class ComposersActivity extends AppCompatActivity implements AdapterView.
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                mSymphonyComposers = wikiService.processResults(response);
+
+                ComposersActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        String [] symphonyComposerNames = new String[mSymphonyComposers.size()];
+                        for (int i=0; i < symphonyComposerNames.length; i++) {
+                            symphonyComposerNames[i] = mSymphonyComposers.get(i).getName();
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter(ComposersActivity.this, android.R.layout.simple_list_item_1, symphonyComposerNames);
+                        mListView.setAdapter(adapter);
+
+                        for (SymphonyComposer composer : mSymphonyComposers) {
+                            Log.d (TAG, "Name: " + composer.getName());
+                            Log.d (TAG, "Birth - Death: " + composer.getBirthDeath());
+                            Log.d (TAG, "Content: " + composer.getContent());
+                        }
+
+                    }
+                });
             }
 
         });
