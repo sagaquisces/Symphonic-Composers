@@ -3,7 +3,8 @@ package com.epicodus.symphoniccomposers;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
-import org.hamcrest.Matcher;
+import com.epicodus.symphoniccomposers.ui.ComposersActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 

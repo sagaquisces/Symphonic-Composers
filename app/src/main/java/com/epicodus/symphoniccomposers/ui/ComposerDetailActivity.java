@@ -1,9 +1,11 @@
-package com.epicodus.symphoniccomposers;
+package com.epicodus.symphoniccomposers.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.epicodus.symphoniccomposers.R;
 
 import org.w3c.dom.Text;
 

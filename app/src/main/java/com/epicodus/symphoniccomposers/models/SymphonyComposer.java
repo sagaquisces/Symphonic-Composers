@@ -1,4 +1,4 @@
-package com.epicodus.symphoniccomposers;
+package com.epicodus.symphoniccomposers.models;
 
 /**
  * Created by Guest on 9/15/17.

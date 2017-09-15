@@ -1,18 +1,17 @@
-package com.epicodus.symphoniccomposers;
+package com.epicodus.symphoniccomposers.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.epicodus.symphoniccomposers.CustomOnItemSelectedListener;
+import com.epicodus.symphoniccomposers.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

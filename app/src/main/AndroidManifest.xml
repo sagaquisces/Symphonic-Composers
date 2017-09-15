@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,16 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ComposersActivity"
+        <activity android:name=".ui.ComposersActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.epicodus.symphoniccomposers.MainActivity"></meta-data>
+                android:value="com.epicodus.symphoniccomposers.ui.MainActivity"></meta-data>
         </activity>
-        <activity android:name=".ComposerDetailActivity">
+        <activity android:name=".ui.ComposerDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.epicodus.symphoniccomposers.ComposersActivity"></meta-data>
+                android:value="com.epicodus.symphoniccomposers.ui.ComposersActivity"></meta-data>
         </activity>
     </application>
 

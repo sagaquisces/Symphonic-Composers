@@ -1,12 +1,14 @@
-package com.epicodus.symphoniccomposers;
+package com.epicodus.symphoniccomposers.services;
 
 import android.util.Log;
+
+import com.epicodus.symphoniccomposers.Constants;
+import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
