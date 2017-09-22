@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.widget.TextView;
 
-import com.epicodus.symphoniccomposers.ui.ComposersActivity;
+import com.epicodus.symphoniccomposers.ui.ComposerListActivity;
 import com.epicodus.symphoniccomposers.ui.MainActivity;
 
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class MainActivityTest {
     @Test
     public void secondActivityStarted() {
         activity.findViewById(R.id.findComposersButton).performClick();
-        Intent expectedIntent = new Intent(activity, ComposersActivity.class);
+        Intent expectedIntent = new Intent(activity, ComposerListActivity.class);
         ShadowActivity shadowActivity = org.robolectric.Shadows.shadowOf(activity);
         Intent actualIntent = shadowActivity.getNextStartedActivity();
         assertTrue(actualIntent.filterEquals(expectedIntent));

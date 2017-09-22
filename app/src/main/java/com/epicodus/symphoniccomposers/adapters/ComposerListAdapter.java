@@ -1,6 +1,7 @@
 package com.epicodus.symphoniccomposers.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 
 import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
+import com.epicodus.symphoniccomposers.ui.ComposerDetailActivity;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -46,7 +50,7 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
         return mSymphonyComposers.size();
     }
 
-    public class ComposerViewHolder extends RecyclerView.ViewHolder {
+    public class ComposerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @Bind(R.id.composerImageView) ImageView mSymphonicComposerImageView;
         @Bind(R.id.composerNameTextView) TextView mNameTextView;
         @Bind(R.id.birthDeathTextView) TextView mBirthDeathTextView;
@@ -58,12 +62,22 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
+            itemView.setOnClickListener(this);
         }
 
         public void bindComposer(SymphonyComposer symphonyComposer) {
             mNameTextView.setText(symphonyComposer.getName());
             mBirthDeathTextView.setText(symphonyComposer.getBirthDeath());
             mContentTextView.setText(symphonyComposer.getContent());
+        }
+
+        @Override
+        public void onClick(View view) {
+            int itemPosition = getLayoutPosition();
+            Intent intent = new Intent(mContext, ComposerDetailActivity.class);
+            intent.putExtra("position", itemPosition);
+            intent.putExtra("composers", Parcels.wrap(mSymphonyComposers));
+            mContext.startActivity(intent);
         }
     }
 }

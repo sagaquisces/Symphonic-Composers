@@ -31,7 +31,7 @@ public class WikiService {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.WIKI_BASE_URL).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.WIKI_BASE_API_URL).newBuilder();
 
         urlBuilder.addQueryParameter("action", "query");
         urlBuilder.addQueryParameter("titles", "List_of_symphony_composers");
@@ -68,8 +68,9 @@ public class WikiService {
                         String name = part.substring(part.indexOf("[")+2, part.indexOf("]"));
                         String birthDeath = part.substring(part.indexOf("(")+1, part.indexOf(")"));
                         String content = part.substring(part.indexOf("), ")+3, part.length());
+                        String pageUrl = String.format("%s%s", Constants.WIKI_BASE_PAGE_URL, name);
                         Log.d("HI", part);
-                        SymphonyComposer symphonyComposer = new SymphonyComposer(name, birthDeath, content);
+                        SymphonyComposer symphonyComposer = new SymphonyComposer(name, birthDeath, content, pageUrl);
                         symphonyComposers.add(symphonyComposer);
                     }
 

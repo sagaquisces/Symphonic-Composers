@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ComposersActivity"
+        <activity android:name=".ui.ComposerListActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -29,7 +29,7 @@
         <activity android:name=".ui.ComposerDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.epicodus.symphoniccomposers.ui.ComposersActivity"></meta-data>
+                android:value="com.epicodus.symphoniccomposers.ui.ComposerListActivity"></meta-data>
         </activity>
     </application>
 

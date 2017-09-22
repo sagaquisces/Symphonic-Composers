@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mFindComposersButton) {
             String country = String.valueOf(mCountriesSpinner.getSelectedItem());
-            Intent intent = new Intent(MainActivity.this, ComposersActivity.class);
+            Intent intent = new Intent(MainActivity.this, ComposerListActivity.class);
             intent.putExtra("country", country);
             startActivity(intent);
         }

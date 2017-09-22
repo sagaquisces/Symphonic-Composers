@@ -3,14 +3,8 @@ package com.epicodus.symphoniccomposers.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.epicodus.symphoniccomposers.R;
@@ -27,8 +21,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ComposersActivity extends AppCompatActivity {
-    public static final String TAG = ComposersActivity.class.getSimpleName();
+public class ComposerListActivity extends AppCompatActivity {
+    public static final String TAG = ComposerListActivity.class.getSimpleName();
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
@@ -60,7 +54,7 @@ public class ComposersActivity extends AppCompatActivity {
 
 //    @Override
 //    public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
-//        Intent intent = new Intent(ComposersActivity.this, ComposerDetailActivity.class);
+//        Intent intent = new Intent(ComposerListActivity.this, ComposerDetailActivity.class);
 //        intent.putExtra("composer", ((TextView)v).getText().toString());
 //        startActivity(intent);
 //    }
@@ -77,13 +71,13 @@ public class ComposersActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) {
                 mSymphonyComposers = wikiService.processResults(country, response);
 
-                ComposersActivity.this.runOnUiThread(new Runnable() {
+                ComposerListActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
                         mAdapter = new ComposerListAdapter(getApplicationContext(), mSymphonyComposers);
                         mRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ComposersActivity.this);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ComposerListActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
 

@@ -3,7 +3,7 @@ package com.epicodus.symphoniccomposers;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
-import com.epicodus.symphoniccomposers.ui.ComposersActivity;
+import com.epicodus.symphoniccomposers.ui.ComposerListActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,10 +22,10 @@ import static org.hamcrest.core.IsNot.not;
  * Created by Guest on 9/8/17.
  */
 
-public class ComposersActivityInstrumentationTest {
+public class ComposerListActivityInstrumentationTest {
 
     @Rule
-    public ActivityTestRule<ComposersActivity> activityTestRule = new ActivityTestRule<>(ComposersActivity.class);
+    public ActivityTestRule<ComposerListActivity> activityTestRule = new ActivityTestRule<>(ComposerListActivity.class);
 
     @Test
     public void listItemClickDisplaysToastWithCorrectComposer() {

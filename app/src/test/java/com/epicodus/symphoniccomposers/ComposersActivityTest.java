@@ -3,7 +3,7 @@ package com.epicodus.symphoniccomposers;
 import android.os.Build;
 import android.widget.ListView;
 
-import com.epicodus.symphoniccomposers.ui.ComposersActivity;
+import com.epicodus.symphoniccomposers.ui.ComposerListActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,12 +23,12 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 
 public class ComposersActivityTest {
-    private ComposersActivity activity;
+    private ComposerListActivity activity;
     private ListView mComposerListView;
 
     @Before
     public void setup() {
-        activity = Robolectric.setupActivity(ComposersActivity.class);
+        activity = Robolectric.setupActivity(ComposerListActivity.class);
         mComposerListView = (ListView) activity.findViewById(R.id.listView);
     }
 
