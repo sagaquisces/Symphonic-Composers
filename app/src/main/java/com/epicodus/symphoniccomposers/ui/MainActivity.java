@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.epicodus.symphoniccomposers.Constants;
-import com.epicodus.symphoniccomposers.CustomOnItemSelectedListener;
+//import com.epicodus.symphoniccomposers.CustomOnItemSelectedListener;
 import com.epicodus.symphoniccomposers.R;
 
 import butterknife.Bind;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
 
-        mCountriesSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+//        mCountriesSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.countries_array, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
