@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.epicodus.symphoniccomposers">
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,17 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ComposerListActivity"
+        <activity
+            android:name=".ui.ComposerListActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.epicodus.symphoniccomposers.ui.MainActivity"></meta-data>
+                android:value="com.epicodus.symphoniccomposers.ui.MainActivity" />
         </activity>
         <activity android:name=".ui.ComposerDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.epicodus.symphoniccomposers.ui.ComposerListActivity"></meta-data>
+                android:value="com.epicodus.symphoniccomposers.ui.ComposerListActivity" />
         </activity>
+        <activity android:name=".ui.SavedComposerListActivity"></activity>
     </application>
 
 </manifest>

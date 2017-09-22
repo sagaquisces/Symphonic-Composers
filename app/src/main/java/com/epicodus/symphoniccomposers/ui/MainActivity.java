@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int mSelectedPosition;
 
     @Bind(R.id.findComposersButton) Button mFindComposersButton;
+    @Bind(R.id.savedComposerButton) Button mSavedComposerButton;
 //    @Bind(R.id.countryEditText) EditText mCountryEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
     @Bind(R.id.countriesSpinner) Spinner mCountriesSpinner;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mFindComposersButton.setOnClickListener(this);
+        mSavedComposerButton.setOnClickListener(this);
     }
 
 
@@ -85,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
 
 
+        }
+        if (v == mSavedComposerButton) {
+            Intent intent = new Intent(MainActivity.this, SavedComposerListActivity.class);
+            startActivity(intent);
         }
     }
 
