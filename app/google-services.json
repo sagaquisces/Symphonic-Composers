@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "257560162859",
+    "firebase_url": "https://symphoni-d69f7.firebaseio.com",
+    "project_id": "symphoni-d69f7",
+    "storage_bucket": "symphoni-d69f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257560162859:android:f581ecfe0c8549ea",
+        "android_client_info": {
+          "package_name": "com.epicodus.symphoniccomposers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257560162859-g8fhsbr6lhnl3g2gua6keaom67mno4fb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdU1POo8wXpDH_aE3DL6hGY4J8ePk8xu4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

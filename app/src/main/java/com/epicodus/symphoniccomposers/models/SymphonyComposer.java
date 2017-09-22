@@ -12,31 +12,31 @@ public class SymphonyComposer {
 //    private String mBirthDeath;
 //    private String mContent;
 
-    String mName;
-    String mBirthDeath;
-    String mContent;
-    String mPageUrl;
+    String name;
+    String birthDeath;
+    String content;
+    String pageUrl;
 
     public SymphonyComposer() {}
 
     public SymphonyComposer(String name, String birthDeath, String content, String pageUrl) {
-        this.mName = name;
-        this.mBirthDeath = birthDeath;
-        this.mContent = content;
-        this.mPageUrl = pageUrl;
+        this.name = name;
+        this.birthDeath = birthDeath;
+        this.content = content;
+        this.pageUrl = pageUrl;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public String getBirthDeath() {
-        return mBirthDeath;
+        return birthDeath;
     }
 
     public String getContent() {
-        return mContent;
+        return content;
     }
 
-    public String getPageUrl() { return mPageUrl; }
+    public String getPageUrl() { return pageUrl; }
 }

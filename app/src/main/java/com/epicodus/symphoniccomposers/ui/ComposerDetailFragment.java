@@ -8,11 +8,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
@@ -29,6 +34,7 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
     @Bind(R.id.birthDeathTextView) TextView mBirthDeathLabel;
     @Bind(R.id.contentTextView) TextView mContentLabel;
     @Bind(R.id.pageUrlTextView) TextView mPageUrlLabel;
+    @Bind(R.id.saveComposerBtn) Button mSaveComposerButton;
 
     private SymphonyComposer mComposer;
 
@@ -68,6 +74,7 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
 //        mPageUrlLabel.setText(mComposer.getPageUrl());
 
         mPageUrlLabel.setOnClickListener(this);
+        mSaveComposerButton.setOnClickListener(this);
 
         return view;
     }
@@ -78,6 +85,13 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mComposer.getPageUrl()));
             startActivity(webIntent);
+        }
+        if (v == mSaveComposerButton) {
+            DatabaseReference composerRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_COMPOSERS);
+            composerRef.push().setValue(mComposer);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
 
     }
