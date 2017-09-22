@@ -1,6 +1,8 @@
 package com.epicodus.symphoniccomposers.ui;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ComposerDetailFragment extends Fragment {
+public class ComposerDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.composerImageView) ImageView mImageLabel;
     @Bind(R.id.composerNameTextView) TextView mNameLabel;
     @Bind(R.id.birthDeathTextView) TextView mBirthDeathLabel;
@@ -64,8 +66,19 @@ public class ComposerDetailFragment extends Fragment {
         mBirthDeathLabel.setText(mComposer.getBirthDeath());
         mContentLabel.setText(mComposer.getContent());
         mPageUrlLabel.setText(mComposer.getPageUrl());
-        // Inflate the layout for this fragment
+
+        mPageUrlLabel.setOnClickListener(this);
+
         return view;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == mPageUrlLabel) {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mComposer.getPageUrl()));
+            startActivity(webIntent);
+        }
+
+    }
 }
