@@ -65,7 +65,7 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
         mNameLabel.setText(mComposer.getName());
         mBirthDeathLabel.setText(mComposer.getBirthDeath());
         mContentLabel.setText(mComposer.getContent());
-        mPageUrlLabel.setText(mComposer.getPageUrl());
+//        mPageUrlLabel.setText(mComposer.getPageUrl());
 
         mPageUrlLabel.setOnClickListener(this);
 
