@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mEditor = mSharedPreferences.edit();
         mSelectedPosition = mSharedPreferences.getInt(Constants.PREFERENCES_COUNTRY_POSITION, -1);
 
-        if (mSelectedPosition != 0) {
+        if (mSelectedPosition > 0) {
             mCountriesSpinner.setSelection(mSelectedPosition);
         }
 
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             Intent intent = new Intent(MainActivity.this, ComposerListActivity.class);
             intent.putExtra("country", country);
-            intent.putExtra("selectedPosition", mSelectedPosition);
             startActivity(intent);
 
 
