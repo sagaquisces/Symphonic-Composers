@@ -4,7 +4,8 @@
     <!--<string name="country_prompt">Choose a country (or all composers)</string>-->
 
     <string-array name="countries_array">
-        <item>All composers (or choose a nationality)</item>
+        <item>Choose a nationality</item>
+        <item>All</item>
         <item>German</item>
         <item>Italian</item>
         <item>French</item>

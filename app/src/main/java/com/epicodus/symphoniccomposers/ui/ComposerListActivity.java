@@ -1,12 +1,16 @@
 package com.epicodus.symphoniccomposers.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.adapters.ComposerListAdapter;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
@@ -14,6 +18,7 @@ import com.epicodus.symphoniccomposers.services.WikiService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.prefs.PreferenceChangeEvent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,6 +28,9 @@ import okhttp3.Response;
 
 public class ComposerListActivity extends AppCompatActivity {
     public static final String TAG = ComposerListActivity.class.getSimpleName();
+
+    private SharedPreferences mSharedPreferences;
+    private String mRecentCountry;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
@@ -49,7 +57,12 @@ public class ComposerListActivity extends AppCompatActivity {
         }
         mCountryTextView.setText(String.format(message, country));
 
+//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mRecentCountry = mSharedPreferences.getString(Constants.PREFERENCES_COUNTRY_KEY, null);
+
         getSymphonyComposers(country);
+
+
     }
 
 //    @Override
