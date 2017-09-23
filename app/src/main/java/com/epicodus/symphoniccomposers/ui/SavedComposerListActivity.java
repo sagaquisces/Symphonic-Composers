@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
@@ -23,6 +24,7 @@ public class SavedComposerListActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter mFirebaseAdapter;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.countryTextView) TextView mCountryTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class SavedComposerListActivity extends AppCompatActivity {
 
         mComposerReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_COMPOSERS);
         setUpFirebaseAdapter();
+
+        mCountryTextView.setText("Your saved composers:");
     }
 
     private void setUpFirebaseAdapter() {

@@ -10,7 +10,6 @@ import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.epicodus.symphoniccomposers.ui.ComposerDetailActivity;
-import com.epicodus.symphoniccomposers.ui.ComposerDetailFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,7 +71,7 @@ public class FirebaseComposerViewHolder extends RecyclerView.ViewHolder implemen
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                
+
             }
         });
 
