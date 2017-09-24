@@ -11,19 +11,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.epicodus.symphoniccomposers.Constants;
-//import com.epicodus.symphoniccomposers.CustomOnItemSelectedListener;
 import com.epicodus.symphoniccomposers.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+//import com.epicodus.symphoniccomposers.CustomOnItemSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private int mSelectedPosition;
+
+    private FirebaseAuth mAuth;
 
     @Bind(R.id.findComposersButton) Button mFindComposersButton;
     @Bind(R.id.savedComposerButton) Button mSavedComposerButton;
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
 //        mCountriesSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
@@ -66,6 +72,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mFindComposersButton.setOnClickListener(this);
         mSavedComposerButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser == null){
+
+            Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
+            startActivity(startIntent);
+            finish();
+        }
     }
 
 

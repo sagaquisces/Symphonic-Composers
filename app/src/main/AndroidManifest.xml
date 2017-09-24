@@ -32,7 +32,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.epicodus.symphoniccomposers.ui.ComposerListActivity" />
         </activity>
-        <activity android:name=".ui.SavedComposerListActivity"></activity>
+        <activity android:name=".ui.SavedComposerListActivity" />
+        <activity android:name=".ui.StartActivity" />
+        <activity android:name=".ui.RegisterActivity"></activity>
     </application>
 
 </manifest>

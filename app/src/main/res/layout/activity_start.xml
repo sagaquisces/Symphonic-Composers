@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="com.epicodus.symphoniccomposers.ui.MainActivity">
+    tools:context="com.epicodus.symphoniccomposers.ui.StartActivity">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="495dp"
-        android:id="@+id/imageView"
+        android:id="@+id/startImageView"
         android:src="@drawable/background"
         android:scaleType="centerCrop"
         tools:layout_editor_absoluteY="8dp"
@@ -22,50 +22,36 @@
         android:text="Symphonic Composers"
         android:textColor="@color/colorTextIcons"
         android:textSize="50sp"
-        android:id="@+id/appNameTextView"
+        android:id="@+id/startNameTextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2" />
 
-    <Spinner
-        android:id="@+id/countriesSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@color/colorPrimary"
-        android:entries="@array/countries_array"
-        app:layout_constraintBottom_toTopOf="@+id/findComposersButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Find Composers"
-        android:id="@+id/findComposersButton"
+        android:text="Login"
+        android:id="@+id/startLoginButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/savedComposerButton" />
+        app:layout_constraintBottom_toTopOf="@+id/startRegisterButton" />
 
     <Button
-        android:id="@+id/savedComposerButton"
+        android:id="@+id/startRegisterButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:text="My Saved Composers"
+        android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
+
