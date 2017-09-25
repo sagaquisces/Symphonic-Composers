@@ -1,8 +1,7 @@
 package com.epicodus.symphoniccomposers.ui;
 
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
@@ -12,6 +11,8 @@ import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.adapters.FirebaseComposerViewHolder;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,7 +34,14 @@ public class SavedComposerListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_composers);
         ButterKnife.bind(this);
 
-        mComposerReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_COMPOSERS);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        mComposerReference = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_COMPOSERS)
+                .child(uid);
+
         setUpFirebaseAdapter();
 
         mCountryTextView.setText("Your saved composers:");

@@ -1,10 +1,12 @@
 package com.epicodus.symphoniccomposers.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.epicodus.symphoniccomposers.R;
 
@@ -15,6 +17,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     @Bind(R.id.startRegisterButton) Button mRegBtn;
     @Bind(R.id.startLoginButton) Button mLoginBtn;
+    @Bind(R.id.startNameTextView) TextView mStartNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_start);
 
         ButterKnife.bind(this);
+
+        Typeface danceFont = Typeface.createFromAsset(getAssets(), "fonts/dancing-script.otf");
+        mStartNameTextView.setTypeface(danceFont);
 
         mRegBtn.setOnClickListener(this);
         mLoginBtn.setOnClickListener(this);

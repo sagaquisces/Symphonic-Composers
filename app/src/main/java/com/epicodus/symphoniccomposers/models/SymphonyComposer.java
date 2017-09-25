@@ -16,6 +16,7 @@ public class SymphonyComposer {
     String birthDeath;
     String content;
     String pageUrl;
+    private String pushId;
 
     public SymphonyComposer() {}
 
@@ -39,4 +40,12 @@ public class SymphonyComposer {
     }
 
     public String getPageUrl() { return pageUrl; }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 }

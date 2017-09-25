@@ -16,11 +16,12 @@ import android.widget.Toast;
 import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -87,10 +88,19 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
             startActivity(webIntent);
         }
         if (v == mSaveComposerButton) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+
             DatabaseReference composerRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_COMPOSERS);
+                    .getReference(Constants.FIREBASE_CHILD_COMPOSERS)
+                    .child(uid);
+
+            DatabaseReference pushRef = composerRef.push();
+            String pushId = pushRef.getKey();
+            mComposer.setPushId(pushId);
             composerRef.push().setValue(mComposer);
+
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
 
