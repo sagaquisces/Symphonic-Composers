@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.startRegisterButton) Button mRegBtn;
+    @Bind(R.id.startLoginButton) Button mLoginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
 
         mRegBtn.setOnClickListener(this);
+        mLoginBtn.setOnClickListener(this);
 
     }
 
@@ -31,6 +33,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (v == mRegBtn) {
             Intent reg_intent = new Intent(StartActivity.this, RegisterActivity.class);
             startActivity(reg_intent);
+        }
+
+        if (v == mLoginBtn) {
+            Intent login_intent = new Intent(StartActivity.this, LoginActivity.class);
+            startActivity(login_intent);
         }
     }
 }
