@@ -118,11 +118,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v == mFindComposersButton) {
             String country = String.valueOf(mCountriesSpinner.getSelectedItem());
             int selectedPosition = mCountriesSpinner.getSelectedItemPosition();
-            if (mSelectedPosition == -1 || selectedPosition == 0) {
+            mSelectedPosition = selectedPosition;
+            if (mSelectedPosition == 0 || selectedPosition == 1) {
                 country = "All";
                 addToSharedPreferences(1);
             } else if (selectedPosition > 0) {
-                mSelectedPosition = selectedPosition;
                 addToSharedPreferences(mSelectedPosition);
             }
 
