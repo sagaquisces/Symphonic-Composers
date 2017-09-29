@@ -1,6 +1,6 @@
 # Symphonic Composers
 
-An app that features composers of symphonies and will eventually use an app to pull details about these particular composers who have tackled this mountain of an art form.
+An app that features composers of symphonies, drawing details about these particular composers from the Wiki API.
 
 ## Instructions for setup
 
