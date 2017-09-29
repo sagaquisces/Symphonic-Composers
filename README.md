@@ -4,7 +4,7 @@ An app that features composers of symphonies, drawing details about these partic
 
 ## Instructions for setup
 
-* Clone this repository at the comman line of your terminal: `git clone https://github.com/sagaquisces/Symphonic-Composers.git`
+* Clone this repository at the command line of your terminal: `git clone https://github.com/sagaquisces/Symphonic-Composers.git`
 * Open Android Studio (currently 2.3.2)
 * Select *Open an existing Android Studio project*
 * In the file structure, navigate to the cloned directory, highlight that, and click *OK*
