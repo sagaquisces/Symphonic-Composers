@@ -5,4 +5,6 @@ package com.epicodus.symphoniccomposers.util;
  */
 
 public interface ItemTouchHelperViewHolder {
+    void onItemSelected();
+    void onItemClear();
 }
