@@ -10,4 +10,5 @@ public class Constants {
 //    public static final String PREFERENCES_COUNTRY_KEY = "country";
     public static final String PREFERENCES_COUNTRY_POSITION = "spinnerSelection";
     public static final String FIREBASE_CHILD_COMPOSERS = "composers";
+    public static final String FIREBASE_QUERY_INDEX = "index";
 }

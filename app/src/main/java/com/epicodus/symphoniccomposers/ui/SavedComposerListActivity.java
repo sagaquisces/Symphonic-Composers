@@ -14,18 +14,17 @@ import com.epicodus.symphoniccomposers.adapters.FirebaseComposerViewHolder;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.epicodus.symphoniccomposers.util.OnStartDragListener;
 import com.epicodus.symphoniccomposers.util.SimpleItemTouchHelperCallback;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SavedComposerListActivity extends AppCompatActivity implements OnStartDragListener {
 
-    private DatabaseReference mComposerReference;
+    private Query mComposerReference;
     private FirebaseComposerListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
@@ -51,7 +50,8 @@ public class SavedComposerListActivity extends AppCompatActivity implements OnSt
         mComposerReference = FirebaseDatabase
                 .getInstance()
                 .getReference(Constants.FIREBASE_CHILD_COMPOSERS)
-                .child(uid);
+                .child(uid)
+                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
 
         mFirebaseAdapter = new FirebaseComposerListAdapter(SymphonyComposer.class, R.layout.composer_list_item_drag, FirebaseComposerViewHolder.class, mComposerReference, this, this);
 

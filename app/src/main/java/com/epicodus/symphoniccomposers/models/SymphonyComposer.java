@@ -8,14 +8,12 @@ import org.parceler.Parcel;
 
 @Parcel
 public class SymphonyComposer {
-//    private String mName;
-//    private String mBirthDeath;
-//    private String mContent;
 
     String name;
     String birthDeath;
     String content;
     String pageUrl;
+    String index;
     private String pushId;
 
     public SymphonyComposer() {}
@@ -25,6 +23,7 @@ public class SymphonyComposer {
         this.birthDeath = birthDeath;
         this.content = content;
         this.pageUrl = pageUrl;
+        this.index = "not_specified";
     }
 
     public String getName() {
@@ -47,5 +46,13 @@ public class SymphonyComposer {
 
     public void setPushId(String pushId) {
         this.pushId = pushId;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 }
