@@ -30,12 +30,13 @@ public class FirebaseComposerListAdapter extends FirebaseRecyclerAdapter<Symphon
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        notifyItemMoved(fromPosition, toPosition);
         return false;
     }
 
     @Override
-    public void onItemDismiss(int positiion) {
-
+    public void onItemDismiss(int position) {
+        getRef(position).removeValue();
     }
 
     @Override
