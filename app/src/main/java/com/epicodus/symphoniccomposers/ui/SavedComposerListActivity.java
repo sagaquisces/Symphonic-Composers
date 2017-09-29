@@ -22,58 +22,21 @@ import com.google.firebase.database.Query;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SavedComposerListActivity extends AppCompatActivity implements OnStartDragListener {
+public class SavedComposerListActivity extends AppCompatActivity {
 
-    private Query mComposerReference;
-    private FirebaseComposerListAdapter mFirebaseAdapter;
-    private ItemTouchHelper mItemTouchHelper;
-
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_composers);
+        setContentView(R.layout.activity_saved_composer_list);
         ButterKnife.bind(this);
-
-        setUpFirebaseAdapter();
 
         mCountryTextView.setText("Your saved composers:");
     }
 
-    private void setUpFirebaseAdapter() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
 
-        mComposerReference = FirebaseDatabase
-                .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_COMPOSERS)
-                .child(uid)
-                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
-
-        mFirebaseAdapter = new FirebaseComposerListAdapter(SymphonyComposer.class, R.layout.composer_list_item_drag, FirebaseComposerViewHolder.class, mComposerReference, this, this);
-
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mFirebaseAdapter);
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFirebaseAdapter.cleanup();
-    }
-
-    @Override
-    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-        mItemTouchHelper.startDrag(viewHolder);
-    }
 
 
 }

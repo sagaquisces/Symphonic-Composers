@@ -121,9 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mSelectedPosition = selectedPosition;
             if (mSelectedPosition == 0 || selectedPosition == 1) {
                 country = "All";
-                addToSharedPreferences(1);
+                addToSharedPreferences(1, country);
             } else if (selectedPosition > 0) {
-                addToSharedPreferences(mSelectedPosition);
+                addToSharedPreferences(mSelectedPosition, country);
             }
 
             Intent intent = new Intent(MainActivity.this, ComposerListActivity.class);
@@ -163,8 +163,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finish();
     }
 
-    private void addToSharedPreferences(int selectedPosition) {
+    private void addToSharedPreferences(int selectedPosition, String selectedCountry) {
         mEditor.putInt(Constants.PREFERENCES_COUNTRY_POSITION, selectedPosition).apply();
+        mEditor.putString(Constants.PREFERENCES_COUNTRY_KEY, selectedCountry).apply();
     }
 }
 
