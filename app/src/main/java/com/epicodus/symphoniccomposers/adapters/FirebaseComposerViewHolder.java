@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by Guest on 9/22/17.
  */
 
-public class FirebaseComposerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FirebaseComposerViewHolder extends RecyclerView.ViewHolder{
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
     public ImageView mComposerImageView;
@@ -39,7 +39,6 @@ public class FirebaseComposerViewHolder extends RecyclerView.ViewHolder implemen
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
     }
 
     public void bindComposer(SymphonyComposer composer) {
@@ -53,31 +52,4 @@ public class FirebaseComposerViewHolder extends RecyclerView.ViewHolder implemen
         contentTextView.setText(composer.getContent());
     }
 
-    @Override
-    public void onClick(View view) {
-        final ArrayList<SymphonyComposer> composers = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_COMPOSERS);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot shapshot : dataSnapshot.getChildren()) {
-                    composers.add(dataSnapshot.getValue(SymphonyComposer.class));
-                }
-
-                int itemPosition = getLayoutPosition();
-
-                Intent intent = new Intent(mContext, ComposerDetailActivity.class);
-                intent.putExtra("position", itemPosition + "");
-                intent.putExtra("composers", Parcels.wrap(composers));
-
-                mContext.startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 }
