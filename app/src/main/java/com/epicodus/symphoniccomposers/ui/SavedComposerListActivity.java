@@ -48,7 +48,7 @@ public class SavedComposerListActivity extends AppCompatActivity {
     }
 
     private void setUpFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<SymphonyComposer, FirebaseComposerViewHolder>(SymphonyComposer.class, R.layout.composer_list_item, FirebaseComposerViewHolder.class, mComposerReference) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<SymphonyComposer, FirebaseComposerViewHolder>(SymphonyComposer.class, R.layout.composer_list_item_drag, FirebaseComposerViewHolder.class, mComposerReference) {
 
             @Override
             protected void populateViewHolder(FirebaseComposerViewHolder viewHolder, SymphonyComposer model, int position) {

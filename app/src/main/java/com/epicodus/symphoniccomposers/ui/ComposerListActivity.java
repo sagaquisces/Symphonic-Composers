@@ -29,9 +29,6 @@ import okhttp3.Response;
 public class ComposerListActivity extends AppCompatActivity {
     public static final String TAG = ComposerListActivity.class.getSimpleName();
 
-    private SharedPreferences mSharedPreferences;
-    private String mRecentCountry;
-
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
     private ComposerListAdapter mAdapter;
@@ -45,8 +42,6 @@ public class ComposerListActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-//        mListView.setOnItemClickListener(this);
-
         Intent intent = getIntent();
         String country = intent.getStringExtra("country");
         String message = "";
@@ -57,20 +52,10 @@ public class ComposerListActivity extends AppCompatActivity {
         }
         mCountryTextView.setText(String.format(message, country));
 
-//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        mRecentCountry = mSharedPreferences.getString(Constants.PREFERENCES_COUNTRY_KEY, null);
-
         getSymphonyComposers(country);
 
 
     }
-
-//    @Override
-//    public void onItemClick(AdapterView<?> adapterView, View v, int i, long l) {
-//        Intent intent = new Intent(ComposerListActivity.this, ComposerDetailActivity.class);
-//        intent.putExtra("composer", ((TextView)v).getText().toString());
-//        startActivity(intent);
-//    }
 
     private void getSymphonyComposers(final String country) {
         final WikiService wikiService = new WikiService();
