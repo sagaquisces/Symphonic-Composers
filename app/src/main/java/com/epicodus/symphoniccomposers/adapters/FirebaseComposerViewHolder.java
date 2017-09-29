@@ -2,8 +2,10 @@ package com.epicodus.symphoniccomposers.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.epicodus.symphoniccomposers.Constants;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 public class FirebaseComposerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
+    public ImageView mComposerImageView;
 
     View mView;
     Context mContext;
@@ -43,6 +46,7 @@ public class FirebaseComposerViewHolder extends RecyclerView.ViewHolder implemen
         TextView nameTextView = (TextView) mView.findViewById(R.id.composerNameTextView);
         TextView birthDeathTextView = (TextView) mView.findViewById(R.id.birthDeathTextView);
         TextView contentTextView = (TextView) mView.findViewById(R.id.contentTextView);
+        mComposerImageView = (ImageView) mView.findViewById(R.id.composerImageView);
 
         nameTextView.setText(composer.getName());
         birthDeathTextView.setText(composer.getBirthDeath());

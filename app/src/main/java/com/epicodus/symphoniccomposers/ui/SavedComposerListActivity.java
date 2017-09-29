@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.widget.TextView;
 
 import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
+import com.epicodus.symphoniccomposers.adapters.FirebaseComposerListAdapter;
 import com.epicodus.symphoniccomposers.adapters.FirebaseComposerViewHolder;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
+import com.epicodus.symphoniccomposers.util.OnStartDragListener;
+import com.epicodus.symphoniccomposers.util.SimpleItemTouchHelperCallback;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,10 +23,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SavedComposerListActivity extends AppCompatActivity {
+public class SavedComposerListActivity extends AppCompatActivity implements OnStartDragListener {
 
     private DatabaseReference mComposerReference;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private FirebaseComposerListAdapter mFirebaseAdapter;
+    private ItemTouchHelper mItemTouchHelper;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.countryTextView) TextView mCountryTextView;
@@ -34,6 +39,12 @@ public class SavedComposerListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_composers);
         ButterKnife.bind(this);
 
+        setUpFirebaseAdapter();
+
+        mCountryTextView.setText("Your saved composers:");
+    }
+
+    private void setUpFirebaseAdapter() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
@@ -42,30 +53,26 @@ public class SavedComposerListActivity extends AppCompatActivity {
                 .getReference(Constants.FIREBASE_CHILD_COMPOSERS)
                 .child(uid);
 
-        setUpFirebaseAdapter();
+        mFirebaseAdapter = new FirebaseComposerListAdapter(SymphonyComposer.class, R.layout.composer_list_item_drag, FirebaseComposerViewHolder.class, mComposerReference, this, this);
 
-        mCountryTextView.setText("Your saved composers:");
-    }
-
-    private void setUpFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<SymphonyComposer, FirebaseComposerViewHolder>(SymphonyComposer.class, R.layout.composer_list_item_drag, FirebaseComposerViewHolder.class, mComposerReference) {
-
-            @Override
-            protected void populateViewHolder(FirebaseComposerViewHolder viewHolder, SymphonyComposer model, int position) {
-                viewHolder.bindComposer(model);
-            }
-
-
-        };
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseAdapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mFirebaseAdapter.cleanup();
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
     }
 
 
