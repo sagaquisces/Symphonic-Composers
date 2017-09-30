@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.adapters.ComposerPagerAdapter;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
@@ -29,8 +30,8 @@ public class ComposerDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_composer_detail);
         ButterKnife.bind(this);
 
-        mComposers = Parcels.unwrap(getIntent().getParcelableExtra("composers"));
-        int startingPosition = getIntent().getIntExtra("position", 0);
+        mComposers = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_COMPOSERS));
+        int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 
         adapterViewPager = new ComposerPagerAdapter(getSupportFragmentManager(), mComposers);
         mViewPager.setAdapter(adapterViewPager);
