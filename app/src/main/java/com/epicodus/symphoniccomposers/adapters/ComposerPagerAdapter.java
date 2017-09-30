@@ -15,15 +15,17 @@ import java.util.ArrayList;
 
 public class ComposerPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<SymphonyComposer> mComposers;
+    private String mSource;
 
-    public ComposerPagerAdapter(FragmentManager fm, ArrayList<SymphonyComposer> composers) {
+    public ComposerPagerAdapter(FragmentManager fm, ArrayList<SymphonyComposer> composers, String source) {
         super(fm);
         mComposers = composers;
+        mSource = source;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ComposerDetailFragment.newInstance(mComposers, position);
+        return ComposerDetailFragment.newInstance(mComposers, position, mSource);
     }
 
     @Override

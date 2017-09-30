@@ -42,17 +42,19 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
     private SymphonyComposer mComposer;
     private ArrayList<SymphonyComposer> mComposers;
     private int mPosition;
+    private String mSource;
 
 
     public ComposerDetailFragment() {
         // Required empty public constructor
     }
 
-    public static ComposerDetailFragment newInstance(ArrayList<SymphonyComposer> symphonyComposers, Integer position) {
+    public static ComposerDetailFragment newInstance(ArrayList<SymphonyComposer> symphonyComposers, Integer position, String source) {
         ComposerDetailFragment composerDetailFragment = new ComposerDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(symphonyComposers));
         args.putInt(Constants.EXTRA_KEY_POSITION, position);
+        args.putString(Constants.KEY_SOURCE, source);
         composerDetailFragment.setArguments(args);
         return composerDetailFragment;
     }
@@ -62,6 +64,8 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
         super.onCreate(savedInstanceState);
         mComposers = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_COMPOSERS));
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
+        mSource = getArguments().getString(Constants.KEY_SOURCE);
+        // setHasOptionsMenu(true);
         mComposer = mComposers.get(mPosition);
     }
 
@@ -73,6 +77,12 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
 
         View view = inflater.inflate(R.layout.fragment_composer_detail, container, false);
         ButterKnife.bind(this, view);
+
+        if (mSource.equals(Constants.SOURCE_SAVED)) {
+            mSaveComposerButton.setVisibility(View.GONE);
+        } else {
+            mSaveComposerButton.setOnClickListener(this);
+        }
 
         //Picasso.with(view.getContext())load(mComposer.getImageUrl()).into(mImageLabel);
 

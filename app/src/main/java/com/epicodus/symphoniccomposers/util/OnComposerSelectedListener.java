@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface OnComposerSelectedListener {
-    public void onComposerSelected(Integer position, ArrayList<SymphonyComposer> symphonyComposers);
+    public void onComposerSelected(Integer position, ArrayList<SymphonyComposer> symphonyComposers, String source);
 }

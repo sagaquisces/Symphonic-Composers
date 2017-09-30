@@ -23,6 +23,7 @@ public class ComposerListActivity extends AppCompatActivity implements OnCompose
     @Bind(R.id.countryTextView) TextView mCountryTextView;
     private Integer mPosition;
     ArrayList<SymphonyComposer> mComposers;
+    String mSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +36,13 @@ public class ComposerListActivity extends AppCompatActivity implements OnCompose
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
                 mComposers = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_COMPOSERS));
+                mSource = savedInstanceState.getString(Constants.KEY_SOURCE);
 
                 if (mPosition != null && mComposers != null) {
                     Intent intent = new Intent(this, ComposerDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
                     intent.putExtra(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mComposers));
+                    intent.putExtra(Constants.KEY_SOURCE, mSource);
                     startActivity(intent);
                 }
             }
@@ -65,14 +68,16 @@ public class ComposerListActivity extends AppCompatActivity implements OnCompose
         if (mPosition != null && mComposers != null) {
             outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
             outState.putParcelable(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mComposers));
+            outState.putString(Constants.KEY_SOURCE, mSource);
         }
     }
 
 
     @Override
-    public void onComposerSelected(Integer position, ArrayList<SymphonyComposer> composers) {
+    public void onComposerSelected(Integer position, ArrayList<SymphonyComposer> composers, String source) {
         mPosition = position;
         mComposers = composers;
+        mSource = source;
     }
 
 }

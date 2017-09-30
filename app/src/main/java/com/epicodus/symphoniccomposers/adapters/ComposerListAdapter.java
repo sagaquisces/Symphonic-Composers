@@ -89,7 +89,7 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
         }
 
         private void createDetailFragment(int position) {
-            ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mComposers, position);
+            ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mComposers, position, Constants.SOURCE_FIND);
             FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.composerDetailContainer, detailFragment);
             ft.commit();
@@ -105,13 +105,14 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
         @Override
         public void onClick(View view) {
             int itemPosition = getLayoutPosition();
-            mComposerSelectedListener.onComposerSelected(itemPosition, mComposers);
+            mComposerSelectedListener.onComposerSelected(itemPosition, mComposers, Constants.SOURCE_FIND);
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
                 Intent intent = new Intent(mContext, ComposerDetailActivity.class);
                 intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
                 intent.putExtra(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mComposers));
+                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
                 mContext.startActivity(intent);
             }
 

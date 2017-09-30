@@ -3,7 +3,6 @@ package com.epicodus.symphoniccomposers.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MotionEventCompat;
@@ -22,11 +21,8 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import org.apache.tools.ant.util.XMLFragment;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -124,6 +120,7 @@ public class FirebaseComposerListAdapter extends FirebaseRecyclerAdapter<Symphon
                     Intent intent = new Intent(mContext, ComposerDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
                     intent.putExtra(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mComposers));
+                    intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
 
                     mContext.startActivity(intent);
                 }
@@ -135,7 +132,7 @@ public class FirebaseComposerListAdapter extends FirebaseRecyclerAdapter<Symphon
 
     private void createDetailFragment(int position) {
         // Creates new RestaurantDetailFragment with the given position:
-        ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mComposers, position);
+        ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mComposers, position, Constants.SOURCE_SAVED);
         // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
         FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
         //  Replaces the FrameLayout with the RestaurantDetailFragment:
