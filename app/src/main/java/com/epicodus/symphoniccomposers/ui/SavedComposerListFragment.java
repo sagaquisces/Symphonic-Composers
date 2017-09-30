@@ -9,6 +9,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
@@ -33,6 +34,7 @@ public class SavedComposerListFragment extends Fragment implements OnStartDragLi
     private FirebaseComposerListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
+    @Bind(R.id.countryTextView) TextView mCountryTextView;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
 
@@ -47,6 +49,7 @@ public class SavedComposerListFragment extends Fragment implements OnStartDragLi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_saved_composer_list, container, false);
         ButterKnife.bind(this, view);
+        mCountryTextView.setText("Your saved composers:");
         setUpFirebaseAdapter();
         return view;
     }

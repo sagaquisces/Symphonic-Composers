@@ -24,16 +24,13 @@ import butterknife.ButterKnife;
 
 public class SavedComposerListActivity extends AppCompatActivity {
 
-    @Bind(R.id.countryTextView) TextView mCountryTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_saved_composer_list);
-        ButterKnife.bind(this);
 
-        mCountryTextView.setText("Your saved composers:");
     }
 
 

@@ -2,6 +2,9 @@ package com.epicodus.symphoniccomposers.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.epicodus.symphoniccomposers.Constants;
 import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.epicodus.symphoniccomposers.ui.ComposerDetailActivity;
+import com.epicodus.symphoniccomposers.ui.ComposerDetailFragment;
 
 import org.parceler.Parcels;
 
@@ -57,12 +62,26 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
         @Bind(R.id.contentTextView) TextView mContentTextView;
 
         private Context mContext;
+        private int mOrientation;
 
         public ComposerViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
+            mOrientation = itemView.getResources().getConfiguration().orientation;
+
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(0);
+            }
             itemView.setOnClickListener(this);
+        }
+
+        private void createDetailFragment(int position) {
+            ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mSymphonyComposers, position);
+            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.composerDetailContainer, detailFragment);
+            ft.commit();
+
         }
 
         public void bindComposer(SymphonyComposer symphonyComposer) {
@@ -74,10 +93,15 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
         @Override
         public void onClick(View view) {
             int itemPosition = getLayoutPosition();
-            Intent intent = new Intent(mContext, ComposerDetailActivity.class);
-            intent.putExtra("position", itemPosition);
-            intent.putExtra("composers", Parcels.wrap(mSymphonyComposers));
-            mContext.startActivity(intent);
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else {
+                Intent intent = new Intent(mContext, ComposerDetailActivity.class);
+                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                intent.putExtra(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mSymphonyComposers));
+                mContext.startActivity(intent);
+            }
+
         }
     }
 }

@@ -2,14 +2,19 @@ package com.epicodus.symphoniccomposers.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.provider.ContactsContract;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.epicodus.symphoniccomposers.Constants;
+import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.epicodus.symphoniccomposers.ui.ComposerDetailActivity;
+import com.epicodus.symphoniccomposers.ui.ComposerDetailFragment;
 import com.epicodus.symphoniccomposers.util.ItemTouchHelperAdapter;
 import com.epicodus.symphoniccomposers.util.OnStartDragListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -37,6 +42,7 @@ public class FirebaseComposerListAdapter extends FirebaseRecyclerAdapter<Symphon
     private Context mContext;
     private ChildEventListener mChildEventListener;
     private ArrayList<SymphonyComposer> mComposers = new ArrayList<>();
+    private int mOrientation;
 
     public FirebaseComposerListAdapter(Class<SymphonyComposer> modelClass, int modelLayout, Class<FirebaseComposerViewHolder> viewHolderClass, Query ref, OnStartDragListener onStartDragListener, Context context) {
         super(modelClass, modelLayout, viewHolderClass, ref);
@@ -88,6 +94,12 @@ public class FirebaseComposerListAdapter extends FirebaseRecyclerAdapter<Symphon
     @Override
     protected void populateViewHolder(final FirebaseComposerViewHolder viewHolder, SymphonyComposer model, int position) {
         viewHolder.bindComposer(model);
+
+        mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
+        if(mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            createDetailFragment(0);
+        }
+
         viewHolder.mComposerImageView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -105,14 +117,31 @@ public class FirebaseComposerListAdapter extends FirebaseRecyclerAdapter<Symphon
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ComposerDetailActivity.class);
-                intent.putExtra("position", viewHolder.getAdapterPosition());
-                intent.putExtra("composers", Parcels.wrap(mComposers));
+                int itemPosition = viewHolder.getAdapterPosition();
+                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    createDetailFragment(itemPosition);
+                } else {
+                    Intent intent = new Intent(mContext, ComposerDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                    intent.putExtra(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mComposers));
 
-                mContext.startActivity(intent);
+                    mContext.startActivity(intent);
+                }
+
 
             }
         });
+    }
+
+    private void createDetailFragment(int position) {
+        // Creates new RestaurantDetailFragment with the given position:
+        ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mComposers, position);
+        // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
+        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+        //  Replaces the FrameLayout with the RestaurantDetailFragment:
+        ft.replace(R.id.composerDetailContainer, detailFragment);
+        // Commits these changes:
+        ft.commit();
     }
 
     @Override

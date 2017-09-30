@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -38,16 +40,19 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
     @Bind(R.id.saveComposerBtn) Button mSaveComposerButton;
 
     private SymphonyComposer mComposer;
+    private ArrayList<SymphonyComposer> mComposers;
+    private int mPosition;
 
 
     public ComposerDetailFragment() {
         // Required empty public constructor
     }
 
-    public static ComposerDetailFragment newInstance(SymphonyComposer symphonyComposer) {
+    public static ComposerDetailFragment newInstance(ArrayList<SymphonyComposer> symphonyComposers, Integer position) {
         ComposerDetailFragment composerDetailFragment = new ComposerDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable("symphonyComposer", Parcels.wrap(symphonyComposer));
+        args.putParcelable(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(symphonyComposers));
+        args.putInt(Constants.EXTRA_KEY_POSITION, position);
         composerDetailFragment.setArguments(args);
         return composerDetailFragment;
     }
@@ -55,7 +60,9 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mComposer = Parcels.unwrap(getArguments().getParcelable("symphonyComposer"));
+        mComposers = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_COMPOSERS));
+        mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
+        mComposer = mComposers.get(mPosition);
     }
 
 

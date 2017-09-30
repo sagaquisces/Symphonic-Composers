@@ -23,7 +23,7 @@ public class ComposerPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ComposerDetailFragment.newInstance(mComposers.get(position));
+        return ComposerDetailFragment.newInstance(mComposers, position);
     }
 
     @Override
