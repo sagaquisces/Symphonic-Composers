@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="101dp"
+        android:layout_height="100dp"
         android:background="#ffffff"
         android:orientation="vertical"
         android:padding="10dp">
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Composer Name"
             android:textColor="@color/colorPrimary"
-            android:textSize="20dp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <TextView
@@ -37,6 +37,7 @@
             android:text="Birth and Death"
             android:textStyle="italic" />
 
+
         <TextView
             android:id="@+id/contentTextView"
             android:layout_width="wrap_content"
@@ -44,7 +45,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="Content"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:visibility="gone" />
+
 
     </LinearLayout>
 
