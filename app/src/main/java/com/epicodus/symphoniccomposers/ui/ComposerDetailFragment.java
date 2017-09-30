@@ -18,12 +18,16 @@ import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -108,17 +112,41 @@ public class ComposerDetailFragment extends Fragment implements View.OnClickList
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
 
-            DatabaseReference composerRef = FirebaseDatabase
+            final DatabaseReference composerRef = FirebaseDatabase
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_COMPOSERS)
                     .child(uid);
 
-            DatabaseReference pushRef = composerRef.push();
-            String pushId = pushRef.getKey();
-            mComposer.setPushId(pushId);
-            composerRef.push().setValue(mComposer);
+            composerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean duplicate = false;
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        Map<String, Object> model = (Map<String, Object>) child.getValue();
+                        if(model.get("name").equals(String.valueOf(mComposer.getName()))) {
+                            duplicate = true;
+                            break;
+                        }
+                    }
 
-            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    if (duplicate) {
+                        Toast.makeText(getContext(), "Already Saved", Toast.LENGTH_SHORT).show();
+                    } else {
+                        DatabaseReference pushRef = composerRef.push();
+                        String pushId = pushRef.getKey();
+                        mComposer.setPushId(pushId);
+                        pushRef.setValue(mComposer);
+
+                        Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
 
     }
