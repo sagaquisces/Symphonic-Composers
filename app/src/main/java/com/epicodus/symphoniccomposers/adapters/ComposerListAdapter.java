@@ -17,6 +17,7 @@ import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.epicodus.symphoniccomposers.ui.ComposerDetailActivity;
 import com.epicodus.symphoniccomposers.ui.ComposerDetailFragment;
+import com.epicodus.symphoniccomposers.util.OnComposerSelectedListener;
 
 import org.parceler.Parcels;
 
@@ -30,18 +31,24 @@ import butterknife.ButterKnife;
  */
 
 public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapter.ComposerViewHolder> {
-    private ArrayList<SymphonyComposer> mSymphonyComposers = new ArrayList<>();
-    private Context mContext;
+    private static final int MAX_WIDTH = 200;
+    private static final int MAX_HEIGHT = 200;
 
-    public ComposerListAdapter(Context context, ArrayList<SymphonyComposer> symphonyComposers ) {
+    private Context mContext;
+    private int mOrientation;
+    private ArrayList<SymphonyComposer> mSymphonyComposers = new ArrayList<>();
+    private OnComposerSelectedListener mOnComposerSelectedListener;
+
+    public ComposerListAdapter(Context context, ArrayList<SymphonyComposer> symphonyComposers, OnComposerSelectedListener composerSelectedListener ) {
         mContext = context;
         mSymphonyComposers = symphonyComposers;
+        mOnComposerSelectedListener = composerSelectedListener;
     }
 
     @Override
     public ComposerListAdapter.ComposerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.composer_list_item, parent, false);
-        ComposerViewHolder viewHolder = new ComposerViewHolder(view);
+        ComposerViewHolder viewHolder = new ComposerViewHolder(view, mSymphonyComposers, mOnComposerSelectedListener);
         return viewHolder;
     }
 
@@ -63,12 +70,17 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
 
         private Context mContext;
         private int mOrientation;
+        private ArrayList<SymphonyComposer> mComposers = new ArrayList<>();
+        private OnComposerSelectedListener mComposerSelectedListener;
 
-        public ComposerViewHolder(View itemView) {
+        public ComposerViewHolder(View itemView, ArrayList<SymphonyComposer> composers, OnComposerSelectedListener composerSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
             mContext = itemView.getContext();
             mOrientation = itemView.getResources().getConfiguration().orientation;
+            mComposers = composers;
+            mComposerSelectedListener = composerSelectedListener;
 
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
@@ -77,7 +89,7 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
         }
 
         private void createDetailFragment(int position) {
-            ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mSymphonyComposers, position);
+            ComposerDetailFragment detailFragment = ComposerDetailFragment.newInstance(mComposers, position);
             FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.composerDetailContainer, detailFragment);
             ft.commit();
@@ -93,12 +105,13 @@ public class ComposerListAdapter extends RecyclerView.Adapter<ComposerListAdapte
         @Override
         public void onClick(View view) {
             int itemPosition = getLayoutPosition();
+            mComposerSelectedListener.onComposerSelected(itemPosition, mComposers);
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
                 Intent intent = new Intent(mContext, ComposerDetailActivity.class);
                 intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
-                intent.putExtra(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mSymphonyComposers));
+                intent.putExtra(Constants.EXTRA_KEY_COMPOSERS, Parcels.wrap(mComposers));
                 mContext.startActivity(intent);
             }
 

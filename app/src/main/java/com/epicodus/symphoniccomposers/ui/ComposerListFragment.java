@@ -2,11 +2,9 @@ package com.epicodus.symphoniccomposers.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +16,7 @@ import com.epicodus.symphoniccomposers.R;
 import com.epicodus.symphoniccomposers.adapters.ComposerListAdapter;
 import com.epicodus.symphoniccomposers.models.SymphonyComposer;
 import com.epicodus.symphoniccomposers.services.WikiService;
+import com.epicodus.symphoniccomposers.util.OnComposerSelectedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,9 +35,20 @@ public class ComposerListFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
     public ArrayList<SymphonyComposer> mSymphonyComposers = new ArrayList<>();
     private String mRecentCountry;
+    private OnComposerSelectedListener mOnComposerSelectedListener;
 
     public ComposerListFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnComposerSelectedListener = (OnComposerSelectedListener) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + e.getMessage());
+        }
     }
 
     @Override
@@ -77,7 +87,7 @@ public class ComposerListFragment extends Fragment {
 
                     @Override
                     public void run() {
-                        mAdapter = new ComposerListAdapter(getActivity(), mSymphonyComposers);
+                        mAdapter = new ComposerListAdapter(getActivity(), mSymphonyComposers, mOnComposerSelectedListener);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                         mRecyclerView.setLayoutManager(layoutManager);
